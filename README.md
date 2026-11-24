@@ -1,37 +1,134 @@
-# Studio Bella — site de agendamento
+# Studio Bella — Sistema de Agendamento Online
 
-Projeto acadêmico: página estática de agendamento para salão de beleza.
-Sem build e sem dependências para instalar — basta abrir o `index.html`
-no navegador, ou subir a pasta inteira em qualquer hospedagem de
-arquivos estáticos (GitHub Pages, Netlify, Vercel).
+Site de agendamento para um salão de beleza fictício, desenvolvido como
+trabalho acadêmico. A cliente escolhe o serviço, a profissional, a data e
+o horário direto pela página, e a equipe acompanha a agenda e o
+faturamento por um painel interno.
 
-## Estrutura
+![Tela inicial do Studio Bella](assets/img/preview.jpg)
+
+## O problema que ele resolve
+
+Em um salão, marcar horário por telefone ou WhatsApp tem três problemas
+recorrentes: alguém precisa parar o que está fazendo para atender, a
+cliente não enxerga quais horários estão realmente livres, e serviços de
+duração muito diferente (uma sobrancelha leva 30 minutos, uma mecha leva
+3 horas) acabam marcados em cima um do outro.
+
+Este projeto ataca esses três pontos. A agenda é dividida em blocos de 30
+minutos e **cada serviço reserva o número de blocos que realmente
+consome**, então um horário que não comporta a duração do serviço aparece
+indisponível antes de a cliente tentar marcar.
+
+## Funcionalidades
+
+**Para a cliente**
+
+- Catálogo de serviços com duração e preço
+- Agendamento guiado em 5 etapas, com validação em cada uma
+- Horários indisponíveis aparecem riscados, considerando a duração do
+  serviço e os horários que já passaram
+- Cada profissional só aparece para os serviços que realmente atende
+- Confirmação com envio do resumo pelo WhatsApp e adição ao Google Agenda
+- Consulta e cancelamento dos próprios horários pelo telefone
+
+**Para a equipe**
+
+- Painel protegido por senha, acessível por `#equipe` na URL
+- Indicadores: agendamentos ativos, do dia, valor previsto, recebido e a receber
+- Faturamento por profissional
+- Filtros por profissional e por status
+- Ações por agendamento: concluir, marcar como recebido, cancelar, excluir
+- Exportação da agenda em CSV (separador `;`, pronto para o Excel)
+
+## Tecnologias
+
+HTML5, CSS3 e JavaScript puro (ES6+), sem framework e sem biblioteca
+externa. A persistência usa a **Web Storage API** (`localStorage`) e a
+interface usa elementos nativos como `<dialog>` para os modais. As únicas
+dependências externas são as fontes do Google Fonts.
+
+Não há etapa de build: o que está no repositório é o que roda.
+
+## Como executar
+
+**Opção 1 — abrir direto**
+
+Baixe ou clone o repositório e dê dois cliques no `index.html`. Funciona
+em qualquer navegador moderno, inclusive sem internet (nesse caso só as
+fontes deixam de carregar).
+
+```bash
+git clone https://github.com/isabelly-isa/Agendamento-.git
+```
+
+**Opção 2 — servidor local** (recomendado para desenvolvimento)
+
+```bash
+python3 -m http.server 8000
+```
+
+Depois abra `http://localhost:8000` no navegador.
+
+## Como usar
+
+**Agendando um horário**
+
+1. Clique em **Agendar horário** ou vá até a seção Agendamento
+2. Escolha o serviço — a duração e o preço aparecem em cada card
+3. Escolha a profissional — só aparecem as que atendem aquele serviço
+4. Escolha a data — próximos 14 dias de atendimento, sem domingos
+5. Escolha o horário — os riscados estão ocupados ou não comportam a duração
+6. Preencha nome, telefone e e-mail e confirme
+
+Na confirmação dá para enviar o resumo pelo WhatsApp do salão ou salvar o
+compromisso no Google Agenda.
+
+**Consultando seus horários**
+
+Clique em **Ver meus horários**, informe o telefone usado no agendamento
+e a lista aparece, com opção de cancelar os que ainda estão marcados.
+
+**Acessando o painel da equipe**
+
+O painel fica oculto para quem visita o site. Para abrir, acrescente
+`#equipe` ao fim do endereço:
 
 ```
-project-girls/
+http://localhost:8000/#equipe
+```
+
+A senha padrão é `123456` e pode ser trocada em `assets/js/config.js`.
+
+## Estrutura do projeto
+
+```
+Agendamento-/
 ├── index.html              estrutura da página (só marcação)
 ├── README.md
 └── assets/
     ├── css/
     │   └── style.css       toda a aparência, organizada por seção
     ├── img/
-    │   └── hero.svg        ilustração do topo
+    │   ├── hero.svg        ilustração do topo
+    │   └── preview.jpg     imagem usada neste README
     └── js/
-        ├── config.js       ← edite aqui: serviços, equipe, depoimentos, contato
+        ├── config.js       ← dados do salão: serviços, equipe, contato
         ├── icons.js        desenhos SVG dos ícones de serviço
-        └── app.js          lógica (agenda, wizard, área da equipe)
+        └── app.js          lógica: agenda, agendamento, painel
 ```
 
 A ordem das tags `<script>` no fim do `index.html` precisa ser mantida:
 `config.js` e `icons.js` são carregados antes de `app.js`.
 
-## Como editar o dia a dia
+## Como personalizar
 
-Quase tudo está em `assets/js/config.js`:
+Quase tudo o que muda no dia a dia está em `assets/js/config.js`, sem
+precisar tocar na lógica:
 
 - **Serviços, preços e duração** — lista `SV`. A duração em minutos (`m`)
-  define quantos blocos de 30 minutos o serviço ocupa na agenda. O campo
-  `ic` escolhe o ícone entre os desenhos de `icons.js`.
+  define quantos blocos de 30 minutos o serviço ocupa. O campo `ic`
+  escolhe o ícone entre os desenhos de `icons.js`.
 - **Equipe** — lista `BB`. O campo `sv` diz quais serviços cada
   profissional atende: ele filtra a etapa 2 do agendamento e monta as
   etiquetas do card dela.
@@ -41,53 +138,61 @@ Quase tudo está em `assets/js/config.js`:
 O texto visível do endereço e do telefone fica no `index.html` (seção
 Contato); os links desses itens são montados a partir do `config.js`.
 
-## Imagens
+### Imagens
 
 O site funciona sem nenhuma foto: o topo usa uma ilustração em SVG e as
 profissionais aparecem num círculo com a inicial do nome. Para usar fotos
-reais, sem mexer em código:
+reais:
 
 - **Topo** — salve a foto em `assets/img/` e troque a tag `<img>` do bloco
   `hero-img` no `index.html` (há um comentário no lugar indicando como).
 - **Profissionais** — acrescente o campo `foto` à pessoa em `config.js`:
   `{id:1, n:'Camila', e:'...', sv:[1,2,5], foto:'assets/img/camila.jpg'}`.
-  A imagem deve ser quadrada, a partir de 200×200. Sem o campo, o círculo
-  com a inicial continua aparecendo.
+  A imagem deve ser quadrada, a partir de 200×200.
 
-## Paleta
+### Cores
 
-Definida em tokens no topo de `style.css`, então trocar a cor do site é
-mexer em cinco linhas:
+A paleta está em tokens no topo de `assets/css/style.css`, então mudar a
+identidade visual é editar seis linhas:
 
-| Token         | Cor       | Uso                                 |
-|---------------|-----------|-------------------------------------|
+| Token         | Cor       | Uso                                  |
+|---------------|-----------|--------------------------------------|
 | `--ink`       | `#2a1a2b` | ameixa escura: menu, rodapé, títulos |
-| `--plum`      | `#703a5d` | ameixa média: gradientes            |
-| `--red`       | `#a63d68` | framboesa: botões e preços          |
-| `--gold`      | `#8a6434` | caramelo: rótulos de seção          |
-| `--gold-soft` | `#d9b382` | caramelo claro: bordas e estrelas   |
-| `--rose`      | `#f6e2e7` | rosa suave: fundos de destaque      |
+| `--plum`      | `#703a5d` | ameixa média: gradientes             |
+| `--red`       | `#a63d68` | framboesa: botões e preços           |
+| `--gold`      | `#8a6434` | caramelo: rótulos de seção           |
+| `--gold-soft` | `#d9b382` | caramelo claro: bordas e estrelas    |
+| `--rose`      | `#f6e2e7` | rosa suave: fundos de destaque       |
 
-## Área da equipe
+## Decisões de implementação
 
-Fica **oculta** na página. Para abrir, acrescente `#equipe` no fim da URL:
-
-```
-index.html#equipe
-```
-
-Dá acesso ao painel com indicadores, faturamento por profissional,
-filtros, ações por agendamento e exportação em CSV.
+- **Agenda em blocos de 30 minutos.** Um serviço de 180 minutos ocupa 6
+  blocos seguidos da profissional escolhida, e a verificação de
+  disponibilidade percorre todos eles antes de liberar o horário.
+- **O agendamento guarda uma cópia dos dados do serviço** (nome, preço e
+  duração) em vez de só o id. Assim, alterar a tabela de preços depois
+  não altera nem quebra agendamentos já feitos.
+- **Escapamento de HTML em toda saída de texto**, para que dados digitados
+  pela cliente não consigam injetar marcação na página.
+- **Acessibilidade**: rótulos associados aos campos, `aria-pressed` nas
+  opções de escolha, foco de teclado recolocado a cada etapa, respeito a
+  `prefers-reduced-motion` e contraste conferido nos textos.
 
 ## Limitações conhecidas
 
-São intencionais no recorte deste trabalho, mas vale registrar:
+São consequências do recorte do trabalho (front-end puro, sem servidor),
+e ficam registradas de propósito:
 
-1. **A senha não protege nada.** `SENHA` está em JavaScript, visível para
-   qualquer pessoa que abra o código-fonte da página.
+1. **A senha não oferece segurança real.** `SENHA` está em JavaScript,
+   visível para qualquer pessoa que abra o código-fonte da página.
 2. **Os dados ficam no `localStorage`**, ou seja, no navegador de quem
-   agendou. O painel da equipe não vê os agendamentos feitos em outro
-   dispositivo, e os horários "ocupados" só valem naquele navegador.
-   Uma agenda compartilhada exigiria backend com banco de dados.
+   agendou. O painel da equipe não enxerga agendamentos feitos em outro
+   dispositivo, e os horários ocupados só valem naquele navegador. Uma
+   agenda compartilhada de verdade exigiria backend com banco de dados.
 3. **Nada é enviado automaticamente.** O link de WhatsApp depende de a
-   própria cliente clicar, e o e-mail coletado não é usado.
+   própria cliente clicar nele, e o e-mail coletado não é utilizado.
+
+## Licença
+
+Projeto acadêmico, sem fins comerciais. O salão, os dados e os
+depoimentos são fictícios.
