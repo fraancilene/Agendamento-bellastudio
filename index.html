@@ -4,108 +4,93 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
 <title>Studio Bella — Agendamento Online</title>
+<meta name="description" content="Salão de beleza no Centro. Agende corte, coloração, mechas, hidratação, unhas e sobrancelha online, sem espera.">
+<meta name="theme-color" content="#3e2125">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Studio Bella">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:title" content="Studio Bella — Agendamento Online">
+<meta property="og:description" content="Escolha o serviço, a profissional e o horário em poucos toques.">
+<meta name="twitter:card" content="summary_large_image">
+<!-- Para o link mostrar imagem ao ser compartilhado no WhatsApp/Instagram, publique uma
+     foto de 1200x630 e descomente a linha abaixo com a URL completa dela:
+<meta property="og:image" content="https://seudominio.com.br/capa.jpg"> -->
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%233e2125'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' font-weight='bold' fill='%23f8e4e0' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
 <link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,600;9..144,800&family=Instrument+Sans:wght@400;600&display=swap" rel="stylesheet">
-<style>
-:root{--bg:#f7f2f3;--ink:#2a1a2b;--mut:#6d5a6c;--brass:#4f6f5e;--:#b4366a;--card:#fff;--line:#e2d4d7}
-*{box-sizing:border-box;margin:0}
-html{scroll-behavior:smooth;scroll-padding-top:64px}
-body{font:16px/1.55 'Instrument Sans',system-ui,sans-serif;background:var(--bg);color:var(--ink)}
-h1,h2,h3{
-    font-family:Fraunces,Georgia,serif;line-height:1.1
-    }
-a{color:inherit}
-button,input,select{font:inherit;color:inherit}
-:focus-visible{outline:3px solid var(--brass);outline-offset:2px}
-nav{position:sticky;top:0;z-index:5;background:var(--ink);color:#fff;display:flex;gap:18px;align-items:center;padding:14px 20px;flex-wrap:wrap}
-nav b{font-family:Fraunces,serif;font-size:20px;margin-right:auto}
-nav a{text-decoration:none;font-size:15px}
-.w{max-width:960px;margin:auto;padding:64px 20px}
-.hero{display:grid;grid-template-columns:1fr 180px;gap:32px;align-items:stretch}
-.hero h1{font-size:clamp(40px,8vw,84px);font-weight:800}
-.hero p{max-width:46ch;margin:18px 0 26px;color:var(--mut)}
-.pole{border-radius:180px 180px 12px 12px;background:radial-gradient(circle at 30% 25%,#f1c9d3 0 22%,transparent 23%),radial-gradient(circle at 70% 72%,#a8c2b2 0 28%,transparent 29%),linear-gradient(#a63d68,#2a1a2b);min-height:260px}
-.btn{display:inline-block;background:var(--red);color:#fff;border:0;border-radius:6px;padding:12px 22px;font-weight:600;cursor:pointer;text-decoration:none}
-.btn.alt{background:transparent;color:var(--ink);border:1.5px solid var(--ink)}
-.btn:disabled{opacity:.5;cursor:default}
-.stats{display:flex;gap:32px;margin-top:34px;flex-wrap:wrap}
-.stats b{display:block;font:800 30px Fraunces,serif}
-.stats span{color:var(--mut);font-size:14px}
-h2{font-size:clamp(28px,5vw,42px);margin-bottom:24px}
-.sv{display:flex;justify-content:space-between;gap:16px;padding:16px 0;border-bottom:1px solid var(--line)}
-.sv small{display:block;color:var(--mut)}
-.sv b.p{font-family:Fraunces,serif;font-size:20px;white-space:nowrap}
-.team{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:24px}
-.team div{border-top:3px solid var(--brass);padding-top:14px}
-.team small{color:var(--mut)}
-.box{background:var(--card);border:1px solid var(--line);border-radius:10px;padding:24px;max-width:640px}
-.step{color:var(--brass);font-weight:600;font-size:14px;margin-bottom:4px}
-.box h3{margin-bottom:16px;font-size:26px}
-.opt{display:flex;justify-content:space-between;width:100%;gap:12px;text-align:left;background:var(--bg);border:1.5px solid var(--line);border-radius:8px;padding:12px 14px;margin-bottom:8px;cursor:pointer}
-.opt.on{border-color:var(--ink);background:var(--ink);color:#fff}
-.opt span{opacity:.75}
-.slots{display:grid;grid-template-columns:repeat(auto-fill,minmax(84px,1fr));gap:8px}
-.slots .opt{justify-content:center;margin:0}
-.opt:disabled{text-decoration:line-through;opacity:.4;cursor:not-allowed}
-label{display:block;margin:10px 0 4px;font-size:14px;font-weight:600}
-input,select{width:100%;padding:10px 12px;border:1.5px solid var(--line);border-radius:6px;background:#fff}
-.sum{margin-top:16px;padding:12px;background:var(--bg);border-radius:8px;font-size:15px}
-.nav{display:flex;justify-content:space-between;margin-top:20px;gap:10px}
-.msg{color:var(--red);min-height:22px;margin-top:10px;font-size:14px}
-.ov{overflow-x:auto;margin-top:14px}
-table{border-collapse:collapse;width:100%;font-size:14px;background:var(--card)}
-th,td{padding:9px 10px;border-bottom:1px solid var(--line);text-align:left;white-space:nowrap}
-td button{border:1px solid var(--line);background:#fff;border-radius:5px;padding:3px 8px;cursor:pointer;margin-right:4px}
-.kp{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px;margin:16px 0}
-.kp div{background:var(--card);border:1px solid var(--line);border-radius:8px;padding:12px}
-.kp b{display:block;font:800 22px Fraunces,serif}
-.tool{display:flex;gap:8px;flex-wrap:wrap;margin-top:18px}
-.tool select{width:auto}
-dialog{border:0;border-radius:10px;padding:24px;width:min(440px,92vw);margin:auto}
-dialog::backdrop{background:rgba(0,0,0,.55)}
-footer{background:var(--ink);color:#cfd6d1;text-align:center;padding:22px;font-size:14px}
-[hidden]{display:none!important}
-@media(prefers-reduced-motion:reduce){html{scroll-behavior:auto}}
-@media(max-width:560px){.hero{grid-template-columns:1fr 90px}}
-</style>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 <nav>
-  <b>Studio Bella</b>
+  <b><a href="#inicio">Studio Bella</a></b>
   <a href="#servicos">Serviços</a><a href="#barbeiros">Profissionais</a><a href="#agendamento">Agendamento</a><a href="#contato">Contato</a>
 </nav>
 
+<div class="hero-wrap">
+<svg class="hero-deco" viewBox="0 0 290 430" fill="none" aria-hidden="true">
+  <path d="M16-24C58 92 6 152 40 264c30 98-10 142-34 174" stroke="#c9a079" stroke-width="1.7" stroke-opacity=".8"/>
+  <path d="M54-34C98 84 36 152 74 270c32 100-12 146-36 180" stroke="#c9a079" stroke-width="1.1" stroke-opacity=".5"/>
+</svg>
 <header class="w hero" id="inicio">
-  <div>
+  <div class="hero-txt">
+    <p class="eyebrow">Salão de beleza · Centro</p>
     <h1>Seu horário no salão, sem espera.</h1>
-    <p>Escolha o serviço, a profissional e o horário em poucos toques. Cada atendimento reserva o tempo que ele realmente leva.</p>
-    <a class="btn" href="#agendamento">Agendar horário</a>
+    <p class="lead">Escolha o serviço, a profissional e o horário em poucos toques. Cada atendimento reserva o tempo que ele realmente leva.</p>
+    <div class="hero-cta">
+      <a class="btn" href="#agendamento">Agendar horário</a>
+      <a class="btn alt" href="#servicos">Ver serviços</a>
+    </div>
     <div class="stats">
       <div><b>12</b><span>anos de tradição</span></div>
       <div><b>4.800+</b><span>clientes atendidos</span></div>
       <div><b>4,9</b><span>avaliação média</span></div>
     </div>
   </div>
-  <div class="pole" aria-hidden="true"></div>
 </header>
+<div class="hero-img">
+  <img src="assets/img/hero.jpg" width="835" height="815" fetchpriority="high"
+       alt="Bancada do Studio Bella com orquídeas, pincéis, escova e frascos de tratamento">
+</div>
+</div>
 
-<section class="w" id="servicos"><h2>Serviços</h2><div id="svList"></div></section>
-<section class="w" id="barbeiros"><h2>Profissionais</h2><div class="team" id="bbList"></div></section>
+<section class="w" id="servicos">
+  <p class="eyebrow">O que fazemos</p>
+  <h2>Serviços</h2>
+  <div class="cards" id="svList"></div>
+</section>
 
-<section class="w" id="agendamento">
+<div class="band"><section class="w" id="barbeiros">
+  <p class="eyebrow">Quem vai te atender</p>
+  <h2>Profissionais</h2>
+  <div class="cards" id="bbList"></div>
+</section></div>
+
+<section class="w" id="depoimentos">
+  <p class="eyebrow">Quem já passou por aqui</p>
+  <h2>Depoimentos</h2>
+  <div class="cards" id="dpList"></div>
+</section>
+
+<div class="band"><section class="w" id="agendamento">
+  <p class="eyebrow">Reserve em 5 etapas</p>
   <h2>Agende seu horário</h2>
   <div class="box" id="wiz"></div>
-  <p style="margin-top:14px"><button class="btn alt" id="myBtn">Ver meus horários</button></p>
-</section>
+  <p style="margin-top:16px"><button class="btn alt" id="myBtn">Ver meus horários</button></p>
+</section></div>
 
 <section class="w" id="contato">
+  <p class="eyebrow">Onde nos encontrar</p>
   <h2>Contato</h2>
-  <p><b>Endereço:</b> Av. Principal, 1000 — Centro</p>
-  <p><b>Telefone:</b> (61) 99999-0000</p>
-  <p><b>Horário:</b> segunda a sábado, das 8h às 19h</p>
+  <dl class="contato-grid">
+    <div><dt>Endereço</dt><dd><a id="mapa" target="_blank" rel="noopener">Av. Principal, 1000 — Centro</a></dd></div>
+    <div><dt>Telefone</dt><dd><a id="tel">(61) 99999-0000</a></dd></div>
+    <div><dt>Horário</dt><dd>Segunda a sábado<br>das 8h às 19h</dd></div>
+  </dl>
 </section>
 
-<section class="w" id="admin">
+<!-- Oculta na página: abre com #equipe no fim da URL -->
+<section class="w" id="admin" hidden>
+  <p class="eyebrow">Uso interno</p>
   <h2>Área da equipe</h2>
   <div class="box" id="login">
     <label for="pw">Senha de acesso</label>
@@ -117,8 +102,8 @@ footer{background:var(--ink);color:#cfd6d1;text-align:center;padding:22px;font-s
     <div class="kp" id="kp"></div>
     <div class="ov"><table id="byB"></table></div>
     <div class="tool">
-      <select id="fB"></select>
-      <select id="fS"><option value="">Todos os status</option><option>Agendado</option><option>Concluído</option><option>Cancelado</option></select>
+      <select id="fB" aria-label="Filtrar por profissional"></select>
+      <select id="fS" aria-label="Filtrar por status"><option value="">Todos os status</option><option>Agendado</option><option>Concluído</option><option>Cancelado</option></select>
       <button class="btn alt" id="csv">Exportar CSV</button>
       <button class="btn alt" id="out">Sair da área</button>
     </div>
@@ -126,7 +111,11 @@ footer{background:var(--ink);color:#cfd6d1;text-align:center;padding:22px;font-s
   </div>
 </section>
 
-<footer>©️ 2026 Studio Bella — Todos os direitos reservados.</footer>
+<a class="fab" id="fab" target="_blank" rel="noopener" aria-label="Falar com o salão no WhatsApp" title="Falar no WhatsApp">
+  <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M16 3C8.8 3 3 8.8 3 16c0 2.3.6 4.4 1.7 6.3L3 29l6.9-1.8c1.8 1 3.9 1.5 6.1 1.5 7.2 0 13-5.8 13-13S23.2 3 16 3zm0 23.4c-1.9 0-3.7-.5-5.3-1.4l-.4-.2-4.1 1.1 1.1-4-.2-.4c-1-1.6-1.5-3.5-1.5-5.5 0-5.8 4.7-10.5 10.4-10.5S26.4 10.2 26.4 16 21.7 26.4 16 26.4zm5.9-7.8c-.3-.2-2-1-2.3-1.1-.3-.1-.5-.2-.8.1-.2.3-.9 1.1-1.1 1.3-.2.2-.4.3-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.6.2-.2.4-.4.5-.6.2-.2.2-.4.3-.6.1-.2 0-.4 0-.6 0-.2-.8-1.9-1-2.3-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.6.1-.9.4-.3.3-1.1 1-1.1 2.5s1.1 2.9 1.3 3.1c.2.2 2.2 3.4 5.3 4.6 2.6 1 3.1.8 3.7.8.6-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.2-.2-.5-.4z"/></svg>
+</a>
+
+<footer>&copy; <span id="ano">2026</span> Studio Bella — Todos os direitos reservados.</footer>
 
 <dialog id="ok">
   <h3>Agendamento confirmado!</h3>
@@ -137,141 +126,14 @@ footer{background:var(--ink);color:#cfd6d1;text-align:center;padding:22px;font-s
 <dialog id="my">
   <h3>Meus agendamentos</h3>
   <label for="myTel">Seu telefone (o mesmo do agendamento)</label>
-  <input id="myTel" type="tel">
+  <input id="myTel" type="tel" inputmode="tel">
   <div id="myList" style="margin-top:14px"></div>
   <div class="tool"><button class="btn alt" id="myX">Fechar</button><button class="btn" id="myGo">Buscar</button></div>
 </dialog>
 
-<script>
-const $=s=>document.querySelector(s);
-const E=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const brl=v=>'R$ '+Number(v).toFixed(2).replace('.',',');
-const fd=d=>d.split('-').reverse().join('/');
-const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-
-/* ===== CONFIGURAÇÃO: edite aqui ===== */
-const SENHA='123456';          // senha da área da equipe (mude antes de publicar)
-const WHATS='5561999990000';        // WhatsApp da barbearia (DDI+DDD+número)
-const SV=[
-  {id:1,n:'Corte feminino',p:90,m:60},
-  {id:2,n:'Escova',p:60,m:45},
-  {id:3,n:'Coloração',p:180,m:120},
-  {id:4,n:'Mechas e luzes',p:350,m:180},
-  {id:5,n:'Hidratação profunda',p:90,m:60},
-  {id:6,n:'Manicure',p:40,m:45},
-  {id:7,n:'Pedicure',p:50,m:60},
-  {id:8,n:'Design de sobrancelha',p:45,m:30}
-];
-const BB=[{id:1,n:'Camila',e:'Cortes e escovas'},{id:2,n:'Juliana',e:'Coloração e mechas'},{id:3,n:'Fernanda',e:'Unhas e sobrancelhas'}];
-/* ==================================== */
-
-const KEY='salao_agendamentos';
-let AG=[];try{AG=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){}
-const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(AG))}catch(e){}};
-const sv=id=>SV.find(x=>x.id==id), bb=id=>BB.find(x=>x.id==id);
-const SLOTS=[];for(let h=8;h<19;h++){const H=String(h).padStart(2,'0');SLOTS.push(H+':00',H+':30')}
-const nS=id=>Math.ceil(sv(id).m/30);
-const ocupado=(b,d,t)=>{const i=SLOTS.indexOf(t);return AG.some(a=>{if(a.b!=b||a.d!==d||a.s==='Cancelado')return false;const j=SLOTS.indexOf(a.t);return i>=j&&i<j+nS(a.sv)})};
-const livre=(b,d,t,s)=>{const i=SLOTS.indexOf(t),n=nS(s);if(i+n>SLOTS.length)return false;for(let k=0;k<n;k++)if(ocupado(b,d,SLOTS[i+k]))return false;return true};
-
-$('#svList').innerHTML=SV.map(x=>`<div class="sv"><div><b>${E(x.n)}</b><small>${x.m} min</small></div><b class="p">${brl(x.p)}</b></div>`).join('');
-$('#bbList').innerHTML=BB.map(x=>`<div><h3>${E(x.n)}</h3><small>${E(x.e)}</small></div>`).join('');
-
-/* ===== Agendamento em 5 etapas ===== */
-const TIT=['Escolha o serviço','Escolha a profissional','Escolha a data','Escolha o horário','Seus dados'];
-let st=1,S={sv:0,bb:0,dt:'',tm:'',n:'',tel:'',em:''};
-function days(){const out=[],d=new Date();while(out.length<14){if(d.getDay()!==0)out.push(new Date(d));d.setDate(d.getDate()+1)}return out}
-function wiz(){
-  let h=`<p class="step">Etapa ${st} de 5</p><h3>${TIT[st-1]}</h3>`;
-  if(st===1)h+=SV.map(x=>`<button class="opt ${S.sv==x.id?'on':''}" data-k="sv" data-v="${x.id}"><b>${E(x.n)}</b><span>${x.m} min · ${brl(x.p)}</span></button>`).join('');
-  if(st===2)h+=BB.map(x=>`<button class="opt ${S.bb==x.id?'on':''}" data-k="bb" data-v="${x.id}"><b>${E(x.n)}</b><span>${E(x.e)}</span></button>`).join('');
-  if(st===3){h+='<p style="color:var(--mut);margin-bottom:10px">Atendemos de segunda a sábado.</p><div class="slots">'+days().map(d=>`<button class="opt ${S.dt==iso(d)?'on':''}" data-k="dt" data-v="${iso(d)}">${d.toLocaleDateString('pt-BR',{weekday:'short',day:'2-digit',month:'2-digit'})}</button>`).join('')+'</div>'}
-  if(st===4){
-    const now=new Date(),hoje=iso(now)===S.dt,cur=String(now.getHours()).padStart(2,'0')+':'+String(now.getMinutes()).padStart(2,'0');
-    h+='<p style="color:var(--mut);margin-bottom:10px">Horários riscados estão ocupados ou não comportam a duração do serviço.</p><div class="slots">'+SLOTS.map(t=>`<button class="opt ${S.tm==t?'on':''}" data-k="tm" data-v="${t}" ${!livre(S.bb,S.dt,t,S.sv)||(hoje&&t<=cur)?'disabled':''}>${t}</button>`).join('')+'</div>';
-  }
-  if(st===5){
-    const x=sv(S.sv);
-    h+=`<label for="fn">Nome completo</label><input id="fn" data-f="n" value="${E(S.n)}" autocomplete="name">
-    <label for="ft">Telefone (WhatsApp)</label><input id="ft" data-f="tel" type="tel" value="${E(S.tel)}" autocomplete="tel">
-    <label for="fe">E-mail</label><input id="fe" data-f="em" type="email" value="${E(S.em)}" autocomplete="email">
-    <div class="sum"><b>Resumo do agendamento</b><br>${E(x.n)} com ${E(bb(S.bb).n)}<br>${fd(S.dt)} às ${S.tm}<br>${brl(x.p)}</div>`;
-  }
-  h+=`<p class="msg" id="msg" role="alert"></p><div class="nav"><button class="btn alt" id="back" ${st===1?'disabled':''}>Voltar</button><button class="btn" id="next">${st===5?'Confirmar agendamento':'Continuar'}</button></div>`;
-  $('#wiz').innerHTML=h;
-}
-$('#wiz').addEventListener('click',e=>{
-  const o=e.target.closest('[data-k]');
-  if(o){const k=o.dataset.k;S[k]=(k==='sv'||k==='bb')?Number(o.dataset.v):o.dataset.v;if(k==='dt')S.tm='';wiz();return}
-  if(e.target.id==='back'){st--;wiz()}
-  if(e.target.id==='next')avancar();
-});
-$('#wiz').addEventListener('input',e=>{if(e.target.dataset.f)S[e.target.dataset.f]=e.target.value});
-function avancar(){
-  const m=t=>$('#msg').textContent=t;
-  if(st===1&&!S.sv)return m('Escolha um serviço para continuar.');
-  if(st===2&&!S.bb)return m('Escolha uma profissional para continuar.');
-  if(st===3&&!S.dt)return m('Escolha uma data para continuar.');
-  if(st===4&&!S.tm)return m('Escolha um horário para continuar.');
-  if(st<5){st++;return wiz()}
-  if(S.n.trim().length<3)return m('Digite seu nome completo.');
-  if(S.tel.replace(/\D/g,'').length<10)return m('Digite um telefone com DDD.');
-  if(!/^\S+@\S+\.\S+$/.test(S.em))return m('Digite um e-mail válido.');
-  if(!livre(S.bb,S.dt,S.tm,S.sv)){st=4;wiz();return $('#msg').textContent='Esse horário acabou de ser ocupado. Escolha outro.'}
-  const x=sv(S.sv),a={id:Date.now(),n:S.n.trim(),tel:S.tel.replace(/\D/g,''),em:S.em.trim(),sv:x.id,b:S.bb,d:S.dt,t:S.tm,p:x.p,s:'Agendado',pg:false};
-  AG.push(a);save();confirmar(a);
-}
-function confirmar(a){
-  const x=sv(a.sv),b=bb(a.b),txt=`Olá! Meu agendamento na Studio Bella: ${x.n} com ${b.n} em ${fd(a.d)} às ${a.t}. Nome: ${a.n}.`;
-  $('#okTxt').textContent=`${x.n} com ${b.n}, ${fd(a.d)} às ${a.t}.`;
-  $('#wa').href=`https://wa.me/${WHATS}?text=${encodeURIComponent(txt)}`;
-  const s=new Date(a.d+'T'+a.t+':00'),f=new Date(s.getTime()+x.m*60000);
-  const g=d=>iso(d).replace(/-/g,'')+'T'+String(d.getHours()).padStart(2,'0')+String(d.getMinutes()).padStart(2,'0')+'00';
-  $('#cal').href=`https://calendar.google.com/calendar/render?action=TEMPLATE&text=${encodeURIComponent('Studio Bella — '+x.n)}&dates=${g(s)}/${g(f)}&details=${encodeURIComponent('Profissional: '+b.n)}&location=${encodeURIComponent('Av. Principal, 1000 — Centro')}`;
-  $('#ok').showModal();
-}
-$('#okX').onclick=()=>{$('#ok').close();S={sv:0,bb:0,dt:'',tm:'',n:'',tel:'',em:''};st=1;wiz();renderAdmin()};
-
-/* ===== Meus agendamentos ===== */
-$('#myBtn').onclick=()=>$('#my').showModal();
-$('#myX').onclick=()=>$('#my').close();
-function meus(){
-  const t=$('#myTel').value.replace(/\D/g,''),l=AG.filter(a=>t&&a.tel===t).sort((a,b)=>(a.d+a.t).localeCompare(b.d+b.t));
-  $('#myList').innerHTML=l.length?l.map(a=>`<div class="sv"><div><b>${fd(a.d)} às ${a.t}</b><small>${E(sv(a.sv).n)} com ${E(bb(a.b).n)} · ${a.s}</small></div>${a.s==='Agendado'?`<button class="btn alt" data-c="${a.id}">Cancelar</button>`:''}</div>`).join(''):'<p style="color:var(--mut)">Nenhum agendamento encontrado para esse telefone.</p>';
-}
-$('#myGo').onclick=meus;
-$('#myList').addEventListener('click',e=>{const id=e.target.dataset.c;if(!id)return;const a=AG.find(x=>x.id==id);if(a&&confirm('Cancelar este agendamento?')){a.s='Cancelado';save();meus();renderAdmin();wiz()}});
-
-/* ===== Área da equipe ===== */
-let logado=false;
-$('#pwBtn').onclick=()=>{if($('#pw').value===SENHA){logado=true;$('#pw').value='';$('#pwMsg').textContent='';$('#login').hidden=true;$('#panel').hidden=false;renderAdmin()}else $('#pwMsg').textContent='Senha incorreta. Tente novamente.'};
-$('#pw').addEventListener('keydown',e=>{if(e.key==='Enter')$('#pwBtn').click()});
-$('#out').onclick=()=>{logado=false;$('#panel').hidden=true;$('#login').hidden=false};
-$('#fB').innerHTML='<option value="">Todas as profissionais</option>'+BB.map(b=>`<option value="${b.id}">${E(b.n)}</option>`).join('');
-$('#fB').onchange=$('#fS').onchange=()=>renderAdmin();
-function renderAdmin(){
-  if(!logado)return;
-  const hoje=iso(new Date()),ativos=AG.filter(a=>a.s!=='Cancelado'),prev=ativos.reduce((s,a)=>s+a.p,0),rec=ativos.filter(a=>a.pg).reduce((s,a)=>s+a.p,0);
-  $('#kp').innerHTML=[['Ativos',AG.filter(a=>a.s==='Agendado').length],['Hoje',ativos.filter(a=>a.d===hoje).length],['Previsto',brl(prev)],['Recebido',brl(rec)],['A receber',brl(prev-rec)]].map(k=>`<div><b>${k[1]}</b>${k[0]}</div>`).join('');
-  $('#byB').innerHTML='<tr><th>Profissional</th><th>Atendimentos</th><th>Recebido</th><th>A receber</th></tr>'+BB.map(b=>{const l=ativos.filter(a=>a.b===b.id),r=l.filter(a=>a.pg).reduce((s,a)=>s+a.p,0);return`<tr><td>${E(b.n)}</td><td>${l.length}</td><td>${brl(r)}</td><td>${brl(l.reduce((s,a)=>s+a.p,0)-r)}</td></tr>`}).join('');
-  const fb=$('#fB').value,fs=$('#fS').value,l=AG.filter(a=>(!fb||a.b==fb)&&(!fs||a.s===fs)).sort((a,b)=>(a.d+a.t).localeCompare(b.d+b.t));
-  $('#tb').innerHTML='<tr><th>Data</th><th>Hora</th><th>Cliente</th><th>Serviço</th><th>Profissional</th><th>Valor</th><th>Status</th><th>Ações</th></tr>'+(l.length?l.map(a=>`<tr><td>${fd(a.d)}</td><td>${a.t}</td><td>${E(a.n)}<br><small>${E(a.tel)}</small></td><td>${E(sv(a.sv).n)}</td><td>${E(bb(a.b).n)}</td><td>${brl(a.p)}${a.pg?' ✓':''}</td><td>${a.s}</td><td><button data-a="ok" data-i="${a.id}">Concluir</button><button data-a="pg" data-i="${a.id}">${a.pg?'Estornar':'Recebido'}</button><button data-a="no" data-i="${a.id}">Cancelar</button><button data-a="del" data-i="${a.id}">Excluir</button></td></tr>`).join(''):'<tr><td colspan="8">Nenhum agendamento ainda.</td></tr>');
-}
-$('#tb').addEventListener('click',e=>{
-  const k=e.target.dataset.a;if(!k)return;const i=AG.findIndex(a=>a.id==e.target.dataset.i),a=AG[i];
-  if(k==='ok')a.s='Concluído';
-  if(k==='no')a.s='Cancelado';
-  if(k==='pg')a.pg=!a.pg;
-  if(k==='del'){if(!confirm('Excluir este agendamento?'))return;AG.splice(i,1)}
-  save();renderAdmin();wiz();
-});
-$('#csv').onclick=async()=>{
-  const q=v=>'"'+String(v).replace(/"/g,'""')+'"';
-  const rows=[['Data','Hora','Cliente','Telefone','E-mail','Serviço','Profissional','Valor','Status','Pago']].concat(AG.map(a=>[fd(a.d),a.t,a.n,a.tel,a.em,sv(a.sv).n,bb(a.b).n,a.p,a.s,a.pg?'Sim':'Não']));
-  try{const d=await claude.use('downloads');if(d)await d.save({filename:'agendamentos.csv',data:new Blob(['\ufeff'+rows.map(r=>r.map(q).join(';')).join('\n')],{type:'text/csv;charset=utf-8'})})}catch(e){}
-};
-wiz();
-try{claude.use('downloads').then(d=>{if(!d)$('#csv').hidden=true})}catch(e){}
-</script>
+<!-- config.js e icons.js precisam vir antes de app.js -->
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/icons.js" defer></script>
+<script src="assets/js/app.js" defer></script>
 </body>
 </html>
