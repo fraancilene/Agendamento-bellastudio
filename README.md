@@ -46,7 +46,10 @@ indisponível antes de a cliente tentar marcar.
 HTML5, CSS3 e JavaScript puro (ES6+), sem framework e sem biblioteca
 externa. A persistência usa a **Web Storage API** (`localStorage`) e a
 interface usa elementos nativos como `<dialog>` para os modais. As únicas
-dependências externas são as fontes do Google Fonts.
+dependências externas são as fontes, carregadas do Google Fonts:
+**Playfair Display** nos títulos e **Montserrat** no texto corrido.
+Ambas estão em variáveis CSS (`--serif` e `--sans`), então trocar a
+tipografia do site inteiro é editar duas linhas.
 
 Não há etapa de build: o que está no repositório é o que roda.
 
@@ -110,7 +113,7 @@ Agendamento-/
     ├── css/
     │   └── style.css       toda a aparência, organizada por seção
     ├── img/
-    │   ├── hero.svg        ilustração do topo
+    │   ├── hero.jpg        foto do topo
     │   └── preview.jpg     imagem usada neste README
     └── js/
         ├── config.js       ← dados do salão: serviços, equipe, contato
@@ -140,29 +143,37 @@ Contato); os links desses itens são montados a partir do `config.js`.
 
 ### Imagens
 
-O site funciona sem nenhuma foto: o topo usa uma ilustração em SVG e as
-profissionais aparecem num círculo com a inicial do nome. Para usar fotos
-reais:
+O topo usa a foto `assets/img/hero.jpg`. Ela é exibida com um recorte
+arredondado assimétrico (`border-radius` em porcentagem), que dá a forma
+orgânica sem precisar de máscara ou imagem recortada à mão. Para trocar,
+basta substituir o arquivo por outro de proporção parecida (quadrada ou
+levemente retangular).
 
-- **Topo** — salve a foto em `assets/img/` e troque a tag `<img>` do bloco
-  `hero-img` no `index.html` (há um comentário no lugar indicando como).
-- **Profissionais** — acrescente o campo `foto` à pessoa em `config.js`:
-  `{id:1, n:'Camila', e:'...', sv:[1,2,5], foto:'assets/img/camila.jpg'}`.
-  A imagem deve ser quadrada, a partir de 200×200.
+As profissionais não dependem de foto: sem imagem, o site desenha um
+círculo com a inicial do nome e um anel dourado. Para usar foto real,
+acrescente o campo `foto` à pessoa em `config.js`:
+`{id:1, n:'Camila', e:'...', sv:[1,2,5], foto:'assets/img/camila.jpg'}`.
+A imagem deve ser quadrada, a partir de 200×200.
 
 ### Cores
 
 A paleta está em tokens no topo de `assets/css/style.css`, então mudar a
 identidade visual é editar seis linhas:
 
-| Token         | Cor       | Uso                                  |
-|---------------|-----------|--------------------------------------|
-| `--ink`       | `#2a1a2b` | ameixa escura: menu, rodapé, títulos |
-| `--plum`      | `#703a5d` | ameixa média: gradientes             |
-| `--red`       | `#a63d68` | framboesa: botões e preços           |
-| `--gold`      | `#8a6434` | caramelo: rótulos de seção           |
-| `--gold-soft` | `#d9b382` | caramelo claro: bordas e estrelas    |
-| `--rose`      | `#f6e2e7` | rosa suave: fundos de destaque       |
+| Token         | Cor       | Uso                                   |
+|---------------|-----------|---------------------------------------|
+| `--ink`       | `#3e2125` | vinho escuro: menu, rodapé, títulos   |
+| `--plum`      | `#6b3340` | vinho médio: gradientes               |
+| `--mut`       | `#61423e` | texto corrido                         |
+| `--red`       | `#a94255` | framboesa: botões e preços            |
+| `--gold`      | `#7d5739` | bronze: rótulos de seção              |
+| `--gold-soft` | `#c9a079` | bronze claro: fios decorativos e estrelas |
+| `--rose`      | `#f8e4e0` | blush: fundos de destaque             |
+| `--rose-deep` | `#edc8c2` | blush fechado: fim do gradiente do topo |
+
+As cores foram amostradas da referência visual do topo. O único desvio é
+o `--gold`: o tom da referência (`#996e49`) não alcançava contraste AA
+sobre o fundo rosa, então os rótulos usam um bronze um pouco mais fechado.
 
 ## Decisões de implementação
 
