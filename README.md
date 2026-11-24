@@ -143,11 +143,16 @@ Contato); os links desses itens são montados a partir do `config.js`.
 
 ### Imagens
 
-O topo usa a foto `assets/img/hero.jpg`. Ela é exibida com um recorte
-arredondado assimétrico (`border-radius` em porcentagem), que dá a forma
-orgânica sem precisar de máscara ou imagem recortada à mão. Para trocar,
-basta substituir o arquivo por outro de proporção parecida (quadrada ou
-levemente retangular).
+O topo usa a foto `assets/img/hero.jpg`. No desktop ela é uma camada de
+fundo que ocupa a metade direita da tela, sangrando até a borda, e se
+dissolve em direção ao texto por uma `mask-image` em degradê — por isso
+o texto fica legível mesmo sobrepondo a área da imagem. Abaixo de 860px
+a foto sai dessa camada, perde a máscara e vira um bloco arredondado
+embaixo do texto.
+
+Para trocar, basta substituir o arquivo por outro de proporção parecida
+(quadrada ou levemente retangular). O enquadramento é controlado pelo
+`object-position` da regra `.hero-img img`.
 
 As profissionais não dependem de foto: sem imagem, o site desenha um
 círculo com a inicial do nome e um anel dourado. Para usar foto real,
