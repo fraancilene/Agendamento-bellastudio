@@ -168,15 +168,32 @@ td.acoes{white-space:normal;min-width:188px}
 td.acoes button{margin:2px 4px 2px 0}
 
 /* ---------- Página da equipe (equipe.html) ---------- */
-.pg-equipe{background:var(--bg)}
+/* a página ocupa a altura toda da janela, então o rodapé encosta
+   embaixo mesmo quando há pouco conteúdo */
+.pg-equipe{background:var(--bg);min-height:100vh;display:flex;flex-direction:column}
+.pg-equipe main{flex:1;display:flex;flex-direction:column}
 .pg-equipe nav .nav-tag{font-size:13px;letter-spacing:.14em;text-transform:uppercase;opacity:.65;margin-right:auto}
 .pg-equipe nav b{margin-right:18px}
 .w.wide{max-width:1240px}
 .titulo-painel{font-size:clamp(30px,4.6vw,44px);margin-bottom:26px}
 .sub{font-size:19px;margin:30px 0 0}
 .aviso{color:var(--mut);font-size:14px;margin-bottom:6px}
-.pg-equipe #login{max-width:420px}
 .pg-equipe footer{padding:24px 22px}
+
+/* Tela de acesso: cartão centrado na área útil, entre o menu
+   fixo e o rodapé. O min-height desconta esses dois mais o
+   respiro do .w, para o cartão cair no meio óptico da página. */
+.login-tela{flex:1;display:grid;place-items:center;padding:8px 0}
+.login-tela .box{width:min(430px,100%);padding:34px 32px 30px;text-align:center}
+.cadeado{display:inline-grid;place-items:center;width:52px;height:52px;border-radius:50%;background:var(--rose);color:var(--ink);margin-bottom:18px}
+.login-tela h1{font-size:29px;margin-bottom:10px}
+.login-tela .aviso{margin:0 auto 24px;max-width:30ch}
+.login-tela label{text-align:left}
+.login-tela .msg{margin-bottom:4px}
+.login-tela .btn{width:100%;margin-top:6px}
+.login-tela .volta{margin-top:18px;font-size:13.5px}
+.login-tela .volta a{color:var(--mut);text-decoration:underline;text-underline-offset:3px}
+.login-tela .volta a:hover{color:var(--ink)}
 /* etiqueta colorida de status */
 .st{display:inline-block;padding:3px 11px;border-radius:999px;font-size:12px;font-weight:600;white-space:nowrap}
 .st-agendado{background:var(--rose);color:var(--ink)}
@@ -239,6 +256,10 @@ footer a:hover{opacity:1}
   table td.acoes{display:block;text-align:left;min-width:0;padding-top:12px}
   table td.acoes::before{display:block;margin-bottom:8px}
   table td.acoes button{margin:0 6px 6px 0}
+}
+@media(max-width:600px){
+  .login-tela{padding:0}
+  .login-tela .box{padding:28px 22px 26px}
 }
 @media(prefers-reduced-motion:reduce){
   html{scroll-behavior:auto}
