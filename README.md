@@ -34,7 +34,7 @@ indisponível antes de a cliente tentar marcar.
 
 **Para a equipe**
 
-- Painel protegido por senha, acessível por `#equipe` na URL
+- Painel em página própria (`equipe.html`), protegido por senha
 - Indicadores: agendamentos ativos, do dia, valor previsto, recebido e a receber
 - Faturamento por profissional
 - Filtros por profissional e por status
@@ -94,20 +94,22 @@ e a lista aparece, com opção de cancelar os que ainda estão marcados.
 
 **Acessando o painel da equipe**
 
-O painel fica oculto para quem visita o site. Para abrir, acrescente
-`#equipe` ao fim do endereço:
+O painel tem página própria. Dá para chegar nele pelo botão **Área da
+equipe**, no menu do site, ou direto pelo endereço:
 
 ```
-http://localhost:8000/#equipe
+http://localhost:8000/equipe.html
 ```
 
 A senha padrão é `123456` e pode ser trocada em `assets/js/config.js`.
+A página é marcada com `noindex`, para não aparecer em buscadores.
 
 ## Estrutura do projeto
 
 ```
 Agendamento-/
-├── index.html              estrutura da página (só marcação)
+├── index.html              site público (só marcação)
+├── equipe.html             painel da equipe (só marcação)
 ├── README.md
 └── assets/
     ├── css/
@@ -117,12 +119,17 @@ Agendamento-/
     │   └── preview.jpg     imagem usada neste README
     └── js/
         ├── config.js       ← dados do salão: serviços, equipe, contato
+        ├── core.js         base comum: armazenamento e regras da agenda
         ├── icons.js        desenhos SVG dos ícones de serviço
-        └── app.js          lógica: agenda, agendamento, painel
+        ├── app.js          site público e assistente de agendamento
+        └── equipe.js       painel da equipe
 ```
 
-A ordem das tags `<script>` no fim do `index.html` precisa ser mantida:
-`config.js` e `icons.js` são carregados antes de `app.js`.
+São duas páginas. O site público carrega `config.js`, `icons.js`,
+`core.js` e `app.js`, nessa ordem; o painel carrega `config.js`,
+`core.js` e `equipe.js`. O `core.js` guarda o que as duas usam —
+leitura e gravação no `localStorage`, consultas ao catálogo e as
+regras da agenda — para a lógica não ficar duplicada.
 
 ## Como personalizar
 

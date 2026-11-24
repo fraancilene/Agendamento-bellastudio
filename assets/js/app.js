@@ -1,40 +1,9 @@
 /* ==========================================================
-   Studio Bella — lógica da página
-   Depende de config.js (SENHA, WHATS, ENDERECO, SV, BB,
-   DEPOIMENTOS) e de icons.js (icone), carregados antes.
-
-   Os dados ficam em localStorage, ou seja, no navegador de
-   quem agendou. Para o salão e as clientes verem a mesma
-   agenda é necessário um backend.
+   Site público — serviços, equipe, depoimentos e o assistente
+   de agendamento em 5 etapas.
+   Depende de config.js, icons.js e core.js, carregados antes.
+   O painel da equipe vive em equipe.html / equipe.js.
    ========================================================== */
-
-/* ---------- Utilidades ---------- */
-const $=s=>document.querySelector(s);
-const E=t=>String(t??'').replace(/[&<>"']/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
-const brl=v=>'R$ '+Number(v).toFixed(2).replace('.',',');
-const fd=d=>d.split('-').reverse().join('/');
-const iso=d=>d.getFullYear()+'-'+String(d.getMonth()+1).padStart(2,'0')+'-'+String(d.getDate()).padStart(2,'0');
-const waLink=t=>'https://wa.me/'+WHATS+'?text='+encodeURIComponent(t);
-
-/* ---------- Armazenamento ---------- */
-const KEY='salao_agendamentos';
-let AG=[];try{AG=JSON.parse(localStorage.getItem(KEY)||'[]')}catch(e){}
-const save=()=>{try{localStorage.setItem(KEY,JSON.stringify(AG))}catch(e){}};
-
-/* ---------- Consultas ao catálogo ---------- */
-const sv=id=>SV.find(x=>x.id==id), bb=id=>BB.find(x=>x.id==id);
-/* nome e duração vêm do próprio registro: editar SV/BB depois
-   não quebra agendamentos já feitos */
-const nSv=a=>a.svn||sv(a.sv)?.n||'Serviço removido';
-const nBb=a=>a.bn||bb(a.b)?.n||'Profissional removida';
-const profs=s=>BB.filter(x=>!x.sv||x.sv.includes(Number(s)));
-
-/* ---------- Agenda em blocos de 30 min (08:00 às 18:30) ---------- */
-const SLOTS=[];for(let h=8;h<19;h++){const H=String(h).padStart(2,'0');SLOTS.push(H+':00',H+':30')}
-const nS=id=>Math.ceil(sv(id).m/30);
-const blocos=a=>Math.ceil((a.m||sv(a.sv)?.m||30)/30);
-const ocupado=(b,d,t)=>{const i=SLOTS.indexOf(t);return AG.some(a=>{if(a.b!=b||a.d!==d||a.s==='Cancelado')return false;const j=SLOTS.indexOf(a.t);return i>=j&&i<j+blocos(a)})};
-const livre=(b,d,t,s)=>{const i=SLOTS.indexOf(t),n=nS(s);if(i+n>SLOTS.length)return false;for(let k=0;k<n;k++)if(ocupado(b,d,SLOTS[i+k]))return false;return true};
 
 /* ---------- Conteúdo vindo da configuração ---------- */
 /* Serviços: card com ícone, duração e preço */
@@ -152,7 +121,7 @@ function confirmar(a){
   $('#ok').showModal();
 }
 /* o reset roda no evento close, então fechar com Esc também limpa o formulário */
-const novo=()=>{S={sv:0,bb:0,dt:'',tm:'',n:'',tel:'',em:''};st=1;wiz();renderAdmin()};
+const novo=()=>{S={sv:0,bb:0,dt:'',tm:'',n:'',tel:'',em:''};st=1;wiz()};
 $('#okX').onclick=()=>$('#ok').close();
 $('#ok').addEventListener('close',novo);
 
@@ -166,55 +135,7 @@ function meus(){
   $('#myList').innerHTML=l.length?l.map(a=>`<div class="sv"><div><b>${fd(a.d)} às ${a.t}</b><small>${E(nSv(a))} com ${E(nBb(a))} · ${a.s}</small></div>${a.s==='Agendado'?`<button class="btn alt" data-c="${a.id}">Cancelar</button>`:''}</div>`).join(''):'<p style="color:var(--mut)">Nenhum agendamento encontrado para esse telefone.</p>';
 }
 $('#myGo').onclick=meus;
-$('#myList').addEventListener('click',e=>{const id=e.target.dataset.c;if(!id)return;const a=AG.find(x=>x.id==id);if(a&&confirm('Cancelar este agendamento?')){a.s='Cancelado';save();meus();renderAdmin();wiz()}});
-
-/* ==========================================================
-   ÁREA DA EQUIPE — oculta: abra com #equipe no fim da URL
-   ========================================================== */
-let logado=false;
-$('#pwBtn').onclick=()=>{if($('#pw').value===SENHA){logado=true;$('#pw').value='';$('#pwMsg').textContent='';$('#login').hidden=true;$('#panel').hidden=false;renderAdmin()}else $('#pwMsg').textContent='Senha incorreta. Tente novamente.'};
-$('#pw').addEventListener('keydown',e=>{if(e.key==='Enter')$('#pwBtn').click()});
-$('#out').onclick=()=>{logado=false;$('#panel').hidden=true;$('#login').hidden=false};
-$('#fB').innerHTML='<option value="">Todas as profissionais</option>'+BB.map(b=>`<option value="${b.id}">${E(b.n)}</option>`).join('');
-$('#fB').onchange=$('#fS').onchange=()=>renderAdmin();
-
-function mostrarEquipe(){
-  if(location.hash!=='#equipe')return;
-  $('#admin').hidden=false;
-  $('#admin').scrollIntoView({behavior:'smooth'});
-  if(!logado)$('#pw').focus();
-}
-addEventListener('hashchange',mostrarEquipe);
-mostrarEquipe();
-
-function renderAdmin(){
-  if(!logado)return;
-  const hoje=iso(new Date()),ativos=AG.filter(a=>a.s!=='Cancelado'),prev=ativos.reduce((s,a)=>s+a.p,0),rec=ativos.filter(a=>a.pg).reduce((s,a)=>s+a.p,0);
-  $('#kp').innerHTML=[['Ativos',AG.filter(a=>a.s==='Agendado').length],['Hoje',ativos.filter(a=>a.d===hoje).length],['Previsto',brl(prev)],['Recebido',brl(rec)],['A receber',brl(prev-rec)]].map(k=>`<div><b>${k[1]}</b><span>${k[0]}</span></div>`).join('');
-  $('#byB').innerHTML='<tr><th>Profissional</th><th>Atendimentos</th><th>Recebido</th><th>A receber</th></tr>'+BB.map(b=>{const l=ativos.filter(a=>a.b===b.id),r=l.filter(a=>a.pg).reduce((s,a)=>s+a.p,0);return`<tr><td>${E(b.n)}</td><td>${l.length}</td><td>${brl(r)}</td><td>${brl(l.reduce((s,a)=>s+a.p,0)-r)}</td></tr>`}).join('');
-  const fb=$('#fB').value,fs=$('#fS').value,l=AG.filter(a=>(!fb||a.b==fb)&&(!fs||a.s===fs)).sort((a,b)=>(a.d+a.t).localeCompare(b.d+b.t));
-  $('#tb').innerHTML='<tr><th>Data</th><th>Hora</th><th>Cliente</th><th>Serviço</th><th>Profissional</th><th>Valor</th><th>Status</th><th>Ações</th></tr>'+(l.length?l.map(a=>`<tr><td>${fd(a.d)}</td><td>${a.t}</td><td>${E(a.n)}<br><small>${E(a.tel)}</small></td><td>${E(nSv(a))}</td><td>${E(nBb(a))}</td><td>${brl(a.p)}${a.pg?' ✓':''}</td><td>${a.s}</td><td><button data-a="ok" data-i="${a.id}">Concluir</button><button data-a="pg" data-i="${a.id}">${a.pg?'Estornar':'Recebido'}</button><button data-a="no" data-i="${a.id}">Cancelar</button><button data-a="del" data-i="${a.id}">Excluir</button></td></tr>`).join(''):'<tr><td colspan="8">Nenhum agendamento ainda.</td></tr>');
-}
-$('#tb').addEventListener('click',e=>{
-  const k=e.target.dataset.a;if(!k)return;const i=AG.findIndex(a=>a.id==e.target.dataset.i),a=AG[i];
-  if(k==='ok')a.s='Concluído';
-  if(k==='no')a.s='Cancelado';
-  if(k==='pg')a.pg=!a.pg;
-  if(k==='del'){if(!confirm('Excluir este agendamento?'))return;AG.splice(i,1)}
-  save();renderAdmin();wiz();
-});
-
-$('#csv').onclick=async()=>{
-  const q=v=>'"'+String(v).replace(/"/g,'""')+'"';
-  const rows=[['Data','Hora','Cliente','Telefone','E-mail','Serviço','Profissional','Valor','Status','Pago']]
-    .concat(AG.map(a=>[fd(a.d),a.t,a.n,a.tel,a.em,nSv(a),nBb(a),a.p,a.s,a.pg?'Sim':'Não']));
-  const blob=new Blob(['﻿'+rows.map(r=>r.map(q).join(';')).join('\n')],{type:'text/csv;charset=utf-8'});
-  /* dentro do runtime de artifacts do Claude usa a API de downloads;
-     fora dele, baixa pelo próprio navegador */
-  try{if(typeof claude!=='undefined'&&claude.use){const d=await claude.use('downloads');if(d){await d.save({filename:'agendamentos.csv',data:blob});return}}}catch(e){}
-  const u=URL.createObjectURL(blob),a=document.createElement('a');
-  a.href=u;a.download='agendamentos.csv';a.click();setTimeout(()=>URL.revokeObjectURL(u),1000);
-};
+$('#myList').addEventListener('click',e=>{const id=e.target.dataset.c;if(!id)return;const a=AG.find(x=>x.id==id);if(a&&confirm('Cancelar este agendamento?')){a.s='Cancelado';save();meus();wiz()}});
 
 /* ---------- Primeira renderização ---------- */
 wiz();

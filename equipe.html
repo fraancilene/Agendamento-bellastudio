@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Área da equipe — Studio Bella</title>
+<meta name="robots" content="noindex,nofollow">
+<meta name="theme-color" content="#3e2125">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%233e2125'/%3E%3Ctext x='16' y='23' font-family='Georgia,serif' font-size='19' font-weight='bold' fill='%23f8e4e0' text-anchor='middle'%3EB%3C/text%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@500;600;700;800&family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body class="pg-equipe">
+<nav>
+  <b><a href="index.html">Studio Bella</a></b>
+  <span class="nav-tag">Área da equipe</span>
+  <a href="index.html">&larr; Voltar ao site</a>
+</nav>
+
+<main class="w wide">
+  <p class="eyebrow">Uso interno</p>
+  <h1 class="titulo-painel">Agendamentos</h1>
+
+  <div class="box" id="login">
+    <p class="aviso">Esta área é de uso da equipe do salão.</p>
+    <label for="pw">Senha de acesso</label>
+    <input id="pw" type="password" autocomplete="current-password">
+    <p class="msg" id="pwMsg" role="alert"></p>
+    <button class="btn" id="pwBtn">Entrar</button>
+  </div>
+
+  <div id="panel" hidden>
+    <div class="kp" id="kp"></div>
+
+    <h2 class="sub">Por profissional</h2>
+    <div class="ov"><table id="byB"></table></div>
+
+    <h2 class="sub">Agendamentos</h2>
+    <div class="tool">
+      <select id="fB" aria-label="Filtrar por profissional"></select>
+      <select id="fS" aria-label="Filtrar por status"><option value="">Todos os status</option><option>Agendado</option><option>Concluído</option><option>Cancelado</option></select>
+      <button class="btn alt" id="csv">Exportar CSV</button>
+      <button class="btn alt" id="out">Sair da área</button>
+    </div>
+    <div class="ov"><table id="tb"></table></div>
+  </div>
+</main>
+
+<footer>
+  <p>&copy; <span id="ano">2026</span> Studio Bella</p>
+</footer>
+
+<!-- config.js e core.js precisam vir antes de equipe.js -->
+<script src="assets/js/config.js" defer></script>
+<script src="assets/js/core.js" defer></script>
+<script src="assets/js/equipe.js" defer></script>
+</body>
+</html>

@@ -23,7 +23,7 @@
 <body>
 <nav>
   <b><a href="#inicio">Studio Bella</a></b>
-  <a href="#servicos">Serviços</a><a href="#barbeiros">Profissionais</a><a href="#agendamento">Agendamento</a><a href="#contato">Contato</a>
+  <a href="#servicos">Serviços</a><a href="#barbeiros">Profissionais</a><a href="#agendamento">Agendamento</a><a href="#contato">Contato</a><a href="equipe.html" class="nav-equipe">Área da equipe</a>
 </nav>
 
 <div class="hero-wrap">
@@ -88,34 +88,13 @@
   </dl>
 </section>
 
-<!-- Oculta na página: abre com #equipe no fim da URL -->
-<section class="w" id="admin" hidden>
-  <p class="eyebrow">Uso interno</p>
-  <h2>Área da equipe</h2>
-  <div class="box" id="login">
-    <label for="pw">Senha de acesso</label>
-    <input id="pw" type="password" autocomplete="off">
-    <p class="msg" id="pwMsg"></p>
-    <button class="btn" id="pwBtn">Entrar</button>
-  </div>
-  <div id="panel" hidden>
-    <div class="kp" id="kp"></div>
-    <div class="ov"><table id="byB"></table></div>
-    <div class="tool">
-      <select id="fB" aria-label="Filtrar por profissional"></select>
-      <select id="fS" aria-label="Filtrar por status"><option value="">Todos os status</option><option>Agendado</option><option>Concluído</option><option>Cancelado</option></select>
-      <button class="btn alt" id="csv">Exportar CSV</button>
-      <button class="btn alt" id="out">Sair da área</button>
-    </div>
-    <div class="ov"><table id="tb"></table></div>
-  </div>
-</section>
-
 <a class="fab" id="fab" target="_blank" rel="noopener" aria-label="Falar com o salão no WhatsApp" title="Falar no WhatsApp">
   <svg viewBox="0 0 32 32" width="28" height="28" fill="currentColor" aria-hidden="true"><path d="M16 3C8.8 3 3 8.8 3 16c0 2.3.6 4.4 1.7 6.3L3 29l6.9-1.8c1.8 1 3.9 1.5 6.1 1.5 7.2 0 13-5.8 13-13S23.2 3 16 3zm0 23.4c-1.9 0-3.7-.5-5.3-1.4l-.4-.2-4.1 1.1 1.1-4-.2-.4c-1-1.6-1.5-3.5-1.5-5.5 0-5.8 4.7-10.5 10.4-10.5S26.4 10.2 26.4 16 21.7 26.4 16 26.4zm5.9-7.8c-.3-.2-2-1-2.3-1.1-.3-.1-.5-.2-.8.1-.2.3-.9 1.1-1.1 1.3-.2.2-.4.3-.7.1-.3-.2-1.4-.5-2.6-1.6-1-.9-1.6-2-1.8-2.3-.2-.3 0-.5.1-.6.2-.2.4-.4.5-.6.2-.2.2-.4.3-.6.1-.2 0-.4 0-.6 0-.2-.8-1.9-1-2.3-.2-.4-.4-.4-.6-.4h-.5c-.2 0-.6.1-.9.4-.3.3-1.1 1-1.1 2.5s1.1 2.9 1.3 3.1c.2.2 2.2 3.4 5.3 4.6 2.6 1 3.1.8 3.7.8.6-.1 1.9-.8 2.2-1.5.3-.8.3-1.4.2-1.5-.1-.2-.2-.2-.5-.4z"/></svg>
 </a>
 
-<footer>&copy; <span id="ano">2026</span> Studio Bella — Todos os direitos reservados.</footer>
+<footer>
+  <p>&copy; <span id="ano">2026</span> Studio Bella — Todos os direitos reservados.</p>
+</footer>
 
 <dialog id="ok">
   <h3>Agendamento confirmado!</h3>
@@ -131,9 +110,10 @@
   <div class="tool"><button class="btn alt" id="myX">Fechar</button><button class="btn" id="myGo">Buscar</button></div>
 </dialog>
 
-<!-- config.js e icons.js precisam vir antes de app.js -->
+<!-- a ordem importa: config e core antes de app -->
 <script src="assets/js/config.js" defer></script>
 <script src="assets/js/icons.js" defer></script>
+<script src="assets/js/core.js" defer></script>
 <script src="assets/js/app.js" defer></script>
 </body>
 </html>
